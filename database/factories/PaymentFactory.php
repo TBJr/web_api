@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,13 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
+        $reservation = Reservation::all()->random();
         return [
             //
+            'monto'=>fake()->randomFloat(2,0,12000),
+            'fecha_pago'=>fake()->dateTimeThisDecade(),
+            'metodo_pago'=> fake()->randomElement(['efectivo','electronico']),
+            'reservation_id'=>$reservation->id
         ];
     }
 }
