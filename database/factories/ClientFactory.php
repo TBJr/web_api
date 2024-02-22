@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::all()->random();
         return [
-            //
+            'nombre' => fake()->name(),            
+            'direccion'=>fake()->address(),
+            'telefono'=>fake()->phoneNumber(),
+            'user_id'=>$user->id
         ];
     }
 }

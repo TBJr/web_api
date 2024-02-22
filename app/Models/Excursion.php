@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +11,7 @@ class Excursion extends Model
 {
     use HasFactory;
     
-    protected $fillable =['nombre','descripcion','fecha_inicio','fecha_fin','precio','capacidad_max'];
+    protected $fillable =['nombre','descripcion','fecha_inicio','fecha_fin','precio_entrada','precio_final','capacidad_max'];
 
     public function reservations():HasMany
     {

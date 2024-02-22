@@ -18,6 +18,9 @@ class PlaceFactory extends Factory
     {
         return [
             //
+            'nombre'=>fake()->city(),
+            'descripcion'=>fake()->sentences(),
+            
         ];
     }
 }

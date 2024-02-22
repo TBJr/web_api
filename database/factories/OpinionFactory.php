@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\Excursion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,16 @@ class OpinionFactory extends Factory
      */
     public function definition(): array
     {
+        $excursion = Excursion::all()->random();
+        $client= Client::all()->random();
         return [
             //
+            'puntuacion'=>fake()->random_int(1,5),
+            'comentario'=>fake()->sentences(),
+            'fecha'=>fake()->dateTimeThisDecade(),
+            'excursion_id'=>$excursion->id,
+            'client_id'=>$client->id
+
         ];
     }
 }
