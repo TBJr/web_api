@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre',200);
+            $table->text('descripcion');
+            // $table->foreignId('excursion_id')->constrained();
             $table->timestamps();
         });
     }

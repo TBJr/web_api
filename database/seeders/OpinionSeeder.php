@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use app\Models\Opinion;
+use App\Models\Opinion;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

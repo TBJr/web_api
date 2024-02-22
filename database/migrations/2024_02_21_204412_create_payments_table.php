@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->decimal('monto',8,2);
+            $table->dateTime('fecha_pago');
+            $table->enum('metodo_pago',['efectivo','electronico']);
+            $table->foreignId('reservation_id')->constrained();
             $table->timestamps();
         });
     }

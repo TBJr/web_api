@@ -22,8 +22,8 @@ class OpinionFactory extends Factory
         $client= Client::all()->random();
         return [
             //
-            'puntuacion'=>fake()->random_int(1,5),
-            'comentario'=>fake()->sentences(),
+            'puntuacion'=>fake()->numberBetween(1,5),
+            'comentario'=>fake()->paragraph(),
             'fecha'=>fake()->dateTimeThisDecade(),
             'excursion_id'=>$excursion->id,
             'client_id'=>$client->id

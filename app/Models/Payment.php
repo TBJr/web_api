@@ -11,7 +11,7 @@ class Payment extends Model
     use HasFactory;
 
     
-    protected $fillable = ['monto','fecha_pago','metodo_pago','estado'];
+    protected $fillable = ['monto','fecha_pago','metodo_pago'];
 
   
 
