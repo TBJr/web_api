@@ -12,7 +12,7 @@ class Opinion extends Model
     use HasFactory;
 
     use HasFactory;
-    protected $fillable = ['puntuacion', 'comentario' , 'fecha' ];
+    protected $fillable = ['puntuacion', 'comentario' , 'fecha'];
 
     public function client():BelongsTo
     {

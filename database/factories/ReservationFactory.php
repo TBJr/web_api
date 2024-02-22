@@ -23,7 +23,7 @@ class ReservationFactory extends Factory
         return [
             'client_id'=> $client->id,
             'fecha_reserva'=>fake()->dateTimeThisDecade(),
-            'cantidad_personas'=>fake()->random_int(1,50),
+            'cantidad_personas'=>fake()->numberBetween(1,50),
             'estado'=>fake()->randomElement(['confirmada','pendiente','cancelada']),
             'excursion_id'=> $excursion->id
            
