@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('excursions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre',255);
             $table->text('descripcion');
-            $table->dateTime('fecha_hora_inicio',$precision=0);
-            $table->dateTime('fecha_hora_fin',$precision=0);
-            $table->decimal('precio', 10, 2);
-            $table->bigInteger('capacidad_maxima');
-            $table->bigInteger('lugares_disponibles');
-            $table->enum('dificultad',['baja','media','alta']);
-            $table->dateTime('duracion',$precision=0);
-            $table->enum('transporte',['incluido','noincluido']);
+            $table->date('fecha_inicio');
+            $table->time('hora_salida');
+            $table->date('fecha_fin');
+            $table->time('hora_regreso');
+            $table->decimal('precio_entrada',8,2);
+            $table->decimal('precio_final',8,2);
+            $table->integer('capacidad_max');
             $table->timestamps();
         });
     }
