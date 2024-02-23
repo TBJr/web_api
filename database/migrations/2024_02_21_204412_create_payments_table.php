@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('monto', 10, 2);
-            $table->dateTime('fecha_pago',$precision=0);
-            $table->enum('metodo_pago',['tarjeta_debito','tarjeta_credito','monedero_electronico','pago_virtual']);
-            $table->foreignId('reservations_id')->constrained('reservations')->onDelete('cascade');
+            $table->decimal('monto',8,2);
+            $table->dateTime('fecha_pago');
+            $table->enum('metodo_pago',['efectivo','electronico']);
+            $table->foreignId('reservation_id')->constrained();
             $table->timestamps();
         });
     }

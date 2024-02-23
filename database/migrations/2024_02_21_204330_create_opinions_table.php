@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('opinions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('puntuacion');
-            $table->text('comentario');
-            $table->dateTime('fecha_opinion',$precision=0);
-            $table->foreignId('reservations_id')->constrained('reservations')->onDelete('cascade');
-            $table->foreignId('excursions_id')->constrained('excursions')->onDeleteonDelete('cascade');
+            $table->integer('puntuacion');
+            $table->text('comentario') ;
+            $table->dateTime('fecha');
+            $table->foreignId('excursion_id')->constrained();
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });
     }
