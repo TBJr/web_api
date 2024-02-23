@@ -17,12 +17,11 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::all()->random();
+        
         return [
             'nombre' => fake()->name(),            
             'direccion'=>fake()->address(),
-            'telefono'=>fake()->phoneNumber(),
-            'user_id'=>$user->id
+            'telefono'=>fake()->phoneNumber()          
         ];
     }
 }
