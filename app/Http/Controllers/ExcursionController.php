@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Excursion;
 use App\Http\Requests\StoreExcursionRequest;
 use App\Http\Requests\UpdateExcursionRequest;
+use Exception;
 
 class ExcursionController extends Controller
 {
@@ -13,23 +14,30 @@ class ExcursionController extends Controller
      */
     public function index()
     {
-        //
+        $excursions = Excursion::paginate(20);
+        return response()->json(['data'=>$excursions],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreExcursionRequest $request)
     {
-        //
+
+        try {
+            
+            $data = $request->validated();
+            $excursion = Excursion::create($data);
+            return response()->json(['data'=>$excursion,'message'=>'Excursion insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+
+        }
+
+
     }
 
     /**
@@ -37,23 +45,39 @@ class ExcursionController extends Controller
      */
     public function show(Excursion $excursion)
     {
-        //
+       try {
+            
+            $excursion = Excursion::findOrfail(1);
+            return response()->json(['data'=>$excursion,'message'=>'Excursion insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Excursion $excursion)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateExcursionRequest $request, Excursion $excursion)
     {
-        //
+
+        try {
+            
+            $excursion = Excursion::findOrFail(1);
+            $data = $request->validated();
+            $excursion->update($data);
+            return response()->json(['data'=>$excursion,'message'=>'Excursion actualizada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
+       
+
     }
 
     /**
@@ -61,6 +85,16 @@ class ExcursionController extends Controller
      */
     public function destroy(Excursion $excursion)
     {
-        //
+        try {
+
+            $excursion = Excursion::findOrFail(1);
+            $excursion->delete(); 
+            return response()->json(['message'=>'Excursion eliminada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 }

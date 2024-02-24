@@ -24,7 +24,7 @@ class OpinionFactory extends Factory
             //
             'puntuacion'=>fake()->numberBetween(1,5),
             'comentario'=>fake()->paragraph(),
-            'fecha'=>fake()->dateTimeThisDecade(),
+            // 'fecha'=>fake()->dateTimeThisDecade(),
             'excursion_id'=>$excursion->id,
             'client_id'=>$client->id
 

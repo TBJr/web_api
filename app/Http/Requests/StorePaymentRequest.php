@@ -23,6 +23,11 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             //
+            'monto'=>'required|decimal:2',
+            'fecha_pago'=>'required|date_format:Y-m-d',
+            'metodo_pago'=> 'required|in:efectivo,electronico',
+            'reservation_id'=>'required'
+
         ];
     }
 }

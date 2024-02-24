@@ -11,12 +11,12 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $fillable=['nombre','direccion','telefono'];
+    protected $fillable=['nombre','email','direccion','telefono'];
 
-    public function user():HasOne
-    {
-        return $this->hasOne(User::class);
-    }
+    // public function user():HasOne
+    // {
+    //     return $this->hasOne(User::class);
+    // }
 
     public function reservations():HasMany
     {
