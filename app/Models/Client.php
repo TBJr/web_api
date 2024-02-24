@@ -12,7 +12,7 @@ class Client extends Model
     use HasFactory;
 
     protected $fillable=['nombre','email','direccion','telefono'];
-
+    
     // public function user():HasOne
     // {
     //     return $this->hasOne(User::class);

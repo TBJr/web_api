@@ -29,5 +29,6 @@ Route::apiResource('excursions',ExcursionController::class);
 Route::apiResource('users',UserController::class);
 Route::apiResource('reservations',ReservationController::class);
 Route::apiResource('places',PlaceController::class);
+Route::apiResource('opinions',OpinionController::class);
 
 

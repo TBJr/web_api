@@ -13,23 +13,28 @@ class OpinionController extends Controller
      */
     public function index()
     {
-        //
+        $opinions = Opinion::paginate(20);
+        return response()->json(['data'=>$opinions],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreOpinionRequest $request)
     {
-        //
+        try {
+            
+            $data = $request->validated();
+            $opinions = Opinion::create($data);
+            return response()->json(['data'=>$opinions,'message'=>'Opinión insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+
+        }
+
     }
 
     /**
@@ -37,23 +42,37 @@ class OpinionController extends Controller
      */
     public function show(Opinion $opinion)
     {
-        //
+        try {
+            
+            $opinion = Opinion::findOrfail(1);
+            return response()->json(['data'=>$opinion,'message'=>'Opinión insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Opinion $opinion)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateOpinionRequest $request, Opinion $opinion)
     {
-        //
+        try {
+            
+            $opinion = Opinion::findOrFail(1);
+            $data = $request->validated();
+            $opinion->update($data);
+            return response()->json(['data'=>$opinion,'message'=>'Opinión actualizada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
     /**
@@ -61,6 +80,16 @@ class OpinionController extends Controller
      */
     public function destroy(Opinion $opinion)
     {
-        //
+        try {
+
+            $opinion = Opinion::findOrFail(1);
+            $opinion->delete(); 
+            return response()->json(['message'=>'Opinión eliminada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 }
