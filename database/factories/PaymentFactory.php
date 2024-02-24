@@ -17,13 +17,13 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
-        $reservation = Reservation::all()->random();
+        // $reservation = Reservation::doesntHave('payment')->get()->random();
         return [
             //
             'monto'=>fake()->randomFloat(2,0,12000),
             'fecha_pago'=>fake()->dateTimeThisDecade(),
             'metodo_pago'=> fake()->randomElement(['efectivo','electronico']),
-            'reservation_id'=>$reservation->id
+            // 'reservation_id'=>$reservation->id
         ];
     }
 }

@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',100);
+            $table->string('nombre',150);
+            $table->string('email')->unique();
             $table->string('direccion',200);
             $table->string('telefono',20);
+<<<<<<< HEAD
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+=======
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
+>>>>>>> origin/branch-yaneisy
             $table->timestamps();
         });
     }

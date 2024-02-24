@@ -22,6 +22,11 @@ class StoreOpinionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'puntuacion'=>'required|integer',
+            'comentario'=>'required|string',
+            // 'fecha'=>'nullable|date_format:Y-m-d',
+            'excursion_id'=>'required',
+            'client_id'=>'required'
             //
         ];
     }
