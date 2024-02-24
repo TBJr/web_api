@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->dateTime('fecha_reserva');
             $table->integer('cantidad_personas');
-            $table->enum('estado',['confirmada','pendiente','cancelada']);
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('excursion_id')->constrained();
+            $table->enum('estado',['confirmada','pendiente','cancelada'])->default('pendiente');
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->foreignId('excursion_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

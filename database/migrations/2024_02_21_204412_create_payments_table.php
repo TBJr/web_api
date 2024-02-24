@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('monto',8,2);
             $table->dateTime('fecha_pago');
             $table->enum('metodo_pago',['efectivo','electronico']);
-            $table->foreignId('reservation_id')->constrained();
+            $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
