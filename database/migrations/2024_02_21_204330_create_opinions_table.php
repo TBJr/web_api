@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('puntuacion');
             $table->text('comentario') ;
-            $table->dateTime('fecha');
+            
             $table->foreignId('excursion_id')->constrained()->onDelete('cascade');
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->timestamps();

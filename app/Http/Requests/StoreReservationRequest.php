@@ -22,6 +22,13 @@ class StoreReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'client_id'=>'required',
+            'fecha_reserva'=>'required|date_format:Y-m-d',
+            'cantidad_personas'=>'required|integer',
+            'estado'=> 'nullable|in:confirmada,pendiente,cancelada',
+            'client_id'=>'required',
+            'excursion_id'=>'required'
+           
             //
         ];
     }

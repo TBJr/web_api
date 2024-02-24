@@ -22,7 +22,10 @@ class StoreClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre'=>'required|string|max:150',
+            'direccion'=>'required|string|max:200',
+            'email'=>'required|email',
+            'telefono'=> 'required|numeric'
         ];
     }
 }
