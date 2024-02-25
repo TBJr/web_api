@@ -13,7 +13,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::paginate(20);
+        return response()->json(['data'=>$reservations],200);
     }
 
     /**
@@ -29,7 +30,18 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        //
+        try {
+            
+            $data = $request->validated();
+            $reservation = Reservation::create($data);
+            return response()->json(['data'=>$reservation,'message'=>'Reservación insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+
+        }
+
     }
 
     /**
@@ -37,23 +49,37 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        //
+        try {
+            
+            $reservation = Reservation::findOrfail(1);
+            return response()->json(['data'=>$reservation,'message'=>'Resrvación insertada con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateReservationRequest $request, Reservation $reservation)
     {
-        //
+        try {
+            
+            $reservation = Reservation::findOrFail(1);
+            $data = $request->validated();
+            $reservation->update($data);
+            return response()->json(['data'=>$reservation,'message'=>'Reservación actualizada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
     /**
@@ -61,6 +87,16 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        try {
+
+            $reservation = Reservation::findOrFail(1);
+            $reservation->delete(); 
+            return response()->json(['message'=>'Reservación eliminada con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 }
