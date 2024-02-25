@@ -27,10 +27,11 @@ class StoreExcursionRequest extends FormRequest
             'fecha_inicio'=> 'required|date_format:Y-m-d',
             'hora_salida'=> 'required|date_format:H:i:s',
             'fecha_fin'=>'required|date_format:Y-m-d',
-            'hora_regreso'=>'date_format:H:i:s',
+            'hora_regreso'=>'required|date_format:H:i:s',
             'precio_entrada'=>'required|decimal:2',
             'precio_final'=>'required|decimal:2',
-            'capacidad_max'=>'required|integer'
+            'capacidad_max'=>'required|integer',
+            'places'=>'nullable|array'
         ];
     }
 }
