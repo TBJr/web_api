@@ -15,7 +15,7 @@ class OpinionController extends Controller
     {
         $opinions = Opinion::paginate(20);
         return response()->json(['data'=>$opinions],200);
-    }
+    } 
 
     
     /**
@@ -26,8 +26,8 @@ class OpinionController extends Controller
         try {
             
             $data = $request->validated();
-            $opinions = Opinion::create($data);
-            return response()->json(['data'=>$opinions,'message'=>'Opinión insertada con exito'],201);
+            $opinion = Opinion::create($data);
+            return response()->json(['data'=>$opinion,'message'=>'Opinión insertada con exito'],201);
 
         } catch (Exception $e) {
 
