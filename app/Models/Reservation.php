@@ -13,9 +13,9 @@ class Reservation extends Model
 
     protected $fillable=['fecha_reserva','cantidad_personas','estado'];
 
-    public function user():BelongsTo
+    public function client():BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 
     public function excursion():BelongsTo

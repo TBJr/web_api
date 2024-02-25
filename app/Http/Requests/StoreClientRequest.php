@@ -24,7 +24,7 @@ class StoreClientRequest extends FormRequest
         return [
             'nombre'=>'required|string|max:150',
             'direccion'=>'required|string|max:200',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:email',
             'telefono'=> 'required|numeric'
         ];
     }

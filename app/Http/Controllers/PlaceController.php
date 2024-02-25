@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Place;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
+use App\Http\Resources\PlaceCollection;
 use Exception;
 
 class PlaceController extends Controller
@@ -14,8 +15,8 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Place::paginate(10);
-        return response()->json(['data'=>$places],200);
+       return new PlaceCollection(Place::paginate());
+       // return response()->json(['data'=>$places,'statusCode'=>200],200);
     }
 
    
@@ -28,7 +29,7 @@ class PlaceController extends Controller
 
             $data = $request->validated();
             $place = Place::create($data);
-            return response()->json(['data'=>$place,'message'=>'Lugar insertado con exito'],201);
+            return response()->json(['data'=>$place,'message'=>'Lugar insertado con exito','statusCode'=>201],201);
 
         } catch (Exception $e) {
 
@@ -40,12 +41,12 @@ class PlaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Place $place)
+    public function show($id)
     {
         try {
 
-            $place = Place::findOrFail(1);  
-            return response()->json(['data'=>$place],200);
+            $place = Place::findOrFail($id);  
+            return response()->json(['data'=>$place,'statusCode'=>200],200);
 
         } catch (Exception $e) {
             return response()->json(['error'=>$e->getMessage()],500);
@@ -56,15 +57,15 @@ class PlaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlaceRequest $request, Place $place)
+    public function update(UpdatePlaceRequest $request, $id)
     {
         try {
 
-            $place = Place::findOrFail(1);  
+            $place = Place::findOrFail($id);  
             $data = $request->validated();
             $place->update($data);
 
-            return response()->json(['data'=>$place,'message'=>'El Lugar ha sido actualizado con exito'],200);
+            return response()->json(['data'=>$place,'message'=>'El Lugar ha sido actualizado con exito','statusCode'=>200],200);
 
         } catch (Exception $e) {
             return response()->json(['error'=>$e->getMessage()],500);
@@ -75,12 +76,12 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Place $place)
+    public function destroy($id)
     {
         try {
-            $place = Place::findOrFail(1);  
+            $place = Place::findOrFail($id);  
             $place->delete();
-            return response()->json(['message'=>'El Lugar ha sido eliminado con exito'],200);
+            return response()->json(['message'=>'El Lugar ha sido eliminado con exito','statusCode'=>200],200);
         } catch (Exception $e) {
             return response()->json(['error'=>$e->getMessage()],500);
         }

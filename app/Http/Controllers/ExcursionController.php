@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Excursion;
 use App\Http\Requests\StoreExcursionRequest;
 use App\Http\Requests\UpdateExcursionRequest;
+use App\Http\Resources\ExcursionCollection;
+use App\Http\Resources\ExcursionResource;
+use App\Http\Resources\ReservationCollection;
+use App\Http\Resources\OpinionCollection;
 use Exception;
 
 class ExcursionController extends Controller
@@ -14,8 +18,8 @@ class ExcursionController extends Controller
      */
     public function index()
     {
-        $excursions = Excursion::paginate(20);
-        return response()->json(['data'=>$excursions],200);
+        return new ExcursionCollection(Excursion::paginate());
+        //return response()->json(['data'=>$excursions],200);
     }
 
 
@@ -27,9 +31,11 @@ class ExcursionController extends Controller
 
         try {
             
-            $data = $request->validated();
+            $data = $request->validated()->except(['places']);
+            $places = $request->validated()->only(['places']);
             $excursion = Excursion::create($data);
-            return response()->json(['data'=>$excursion,'message'=>'Excursion insertada con exito'],201);
+            $excursion->places()->sync($places);
+            return response()->json(['data'=> new ExcursionResource($excursion),'message'=>'Excursion insertada con exito'],201);
 
         } catch (Exception $e) {
 
@@ -43,12 +49,12 @@ class ExcursionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Excursion $excursion)
+    public function show($id)
     {
        try {
             
-            $excursion = Excursion::findOrfail(1);
-            return response()->json(['data'=>$excursion,'message'=>'Excursion insertada con exito'],201);
+            $excursion =new ExcursionResource(Excursion::findOrfail($id));        
+            return response()->json(['data'=>$excursion],200);
 
         } catch (Exception $e) {
 
@@ -61,15 +67,15 @@ class ExcursionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateExcursionRequest $request, Excursion $excursion)
+    public function update(UpdateExcursionRequest $request, $id)
     {
 
         try {
             
-            $excursion = Excursion::findOrFail(1);
+            $excursion = Excursion::findOrFail($id);
             $data = $request->validated();
             $excursion->update($data);
-            return response()->json(['data'=>$excursion,'message'=>'Excursion actualizada con exito'],200);
+            return response()->json(['data'=>new ExcursionResource($excursion),'message'=>'Excursion actualizada con exito'],200);
 
         } catch (Exception $e) {
 
@@ -83,11 +89,11 @@ class ExcursionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Excursion $excursion)
+    public function destroy($id)
     {
         try {
 
-            $excursion = Excursion::findOrFail(1);
+            $excursion = Excursion::findOrFail($id);
             $excursion->delete(); 
             return response()->json(['message'=>'Excursion eliminada con exito'],200);
 
@@ -96,5 +102,39 @@ class ExcursionController extends Controller
             return response()->json(['error' => $e->getMessage()],500); 
             
         }
+    }
+    public function getReservationsByExcursion($id)
+    {
+        try {
+
+            $excursion= Excursion::findOrFail($id);
+            $reservations = new ReservationCollection($excursion->reservations);
+            return new ReservationCollection($reservations);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
+
+       
+        
+    }
+
+    public function getOpinionsByExcursion($id){
+
+        try {
+
+            $excursion= Excursion::findOrFail($id);
+            $opinions = $excursion->opinions;           
+            return new OpinionCollection($opinions); 
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
+
+       
     }
 }
