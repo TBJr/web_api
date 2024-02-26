@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +14,12 @@ class ImageFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model=Image::class;
+
     public function definition(): array
     {
         return [
-            'url'=>'posts/'.$this->faker->image('storage/public/posts',640,480,null,false)
+            'url'=>'posts/'.$this->faker->image('public/storage/posts',640,480,null,false)
         ];
     }
 }

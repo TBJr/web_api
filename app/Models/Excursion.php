@@ -30,6 +30,6 @@ class Excursion extends Model
     }
     public function image()
     {
-       return $this->morfphMany(image::class, 'imageable');
+       return $this->morphOne(Image::class, 'imageable');
     }
 }
