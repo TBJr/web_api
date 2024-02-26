@@ -20,7 +20,7 @@ class ExcursionSeeder extends Seeder
         //
        Excursion::factory(6)->create();
        Place::factory(20)->create();
-       Image::factory(6)->create();
+       //Image::factory(6)->create();
 
        foreach( Excursion::all() as $excursion ){
 
@@ -28,22 +28,19 @@ class ExcursionSeeder extends Seeder
 
             $excursion->places()->attach($places);
 
-            
+
        }
-    
-       $post=Excursion::factory(300)->create();
-      
+
+       $post=Excursion::factory(6)->create();
+
        foreach( $post as $post ){
 
-            Image::factor(1)->create([
+            Image::factory(1)->create([
                'imageable_id'=>$post->id,
                'imageable_type'=>Excursion::class
             ]);
-            $post->tags()->attach([ 
-            rand(1, 4),
-            rand(5, 8),
-            ]);
-        
+
+
        }
 
 
