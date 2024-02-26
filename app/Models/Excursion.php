@@ -28,4 +28,8 @@ class Excursion extends Model
     {
        return $this->belongsToMany(Place::class);
     }
+    public function image()
+    {
+       return $this->morfphMany(image::class, 'imageable');
+    }
 }
