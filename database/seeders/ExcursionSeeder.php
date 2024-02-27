@@ -31,12 +31,12 @@ class ExcursionSeeder extends Seeder
 
        }
 
-       $post=Excursion::factory(6)->create();
+       $excursion=Excursion::factory(6)->create();
 
-       foreach( $post as $post ){
+       foreach( $excursion as $excursion ){
 
             Image::factory(1)->create([
-               'imageable_id'=>$post->id,
+               'imageable_id'=>$excursion->id,
                'imageable_type'=>Excursion::class
             ]);
 
