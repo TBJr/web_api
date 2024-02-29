@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Image;
+use Exception;
+use Illuminate\Http\Request;
+use illuminate\Support\Facades\Storage;
+
+class ImageController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $images = Image::all();
+        return response()->json(['data'=>$images],200);
+    }
+
+   
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
+        try {
+
+            $this->validate($request, [
+                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            ]);
+    
+            $ruta = $request->file('image')->store('images', 'public');
+    
+            Image::create([
+                'ruta' => $ruta,
+            ]);
+    
+            return response()->json(['message'=>'Imagen insertada con exito'],200);
+            
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+
+        
+
+       
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        try {
+            $image = Image::findOrFail($id);           
+            return response()->json(['data' => $image], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+   
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        try {
+            $image = Image::findOrFail($id);
+            Storage::disk('public')->delete($image->ruta);        
+            $image->delete();
+            return response()->json(['message' => 'Imagen eliminada con exito'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+        
+
+    }
+}
