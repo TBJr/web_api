@@ -11,7 +11,7 @@ class UpdateExcursionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -32,7 +32,8 @@ class UpdateExcursionRequest extends FormRequest
             'precio_entrada'=>'required|decimal:2',
             'precio_final'=>'required|decimal:2',
             'capacidad_max'=>'required|integer',
-            'places'=>'nullable|array'
+            'places'=>'nullable|array',
+            'images'=>'nullable|array'
         ];
     }
 }

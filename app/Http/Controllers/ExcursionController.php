@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Excursion;
+use App\Models\Image;
 use App\Http\Requests\StoreExcursionRequest;
 use App\Http\Requests\UpdateExcursionRequest;
 use App\Http\Resources\ExcursionCollection;
 use App\Http\Resources\ExcursionResource;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\OpinionCollection;
+use App\Services\ImageService;
 use Exception;
 
 class ExcursionController extends Controller
 {
+
+    function __construct( 
+       protected ImageService $imageService){}
+   
     /**
      * Display a listing of the resource.
      */
@@ -31,11 +37,24 @@ class ExcursionController extends Controller
 
         try {
             
-            $data = $request->validated()->except(['places']);
+            $data = $request->validated()->except(['places,images']);
             $places = $request->validated()->only(['places']);
+            $images = $request->validated()->only(['images']);
+           
             $excursion = Excursion::create($data);
             $excursion->places()->sync($places);
-            return response()->json(['data'=> new ExcursionResource($excursion),'message'=>'Excursion insertada con exito'],201);
+
+            if ( $images->hasFile('images') ){
+
+                foreach ($images->file('images') as $imagefile) {
+                    $ruta = $this->imageService->uploadImage($imagefile);
+                    $image = $this->imageService->saveImage($ruta);
+                    $excursion->images()->save($image);
+                }
+
+            }            
+
+            return response()->json(['data'=> new ExcursionResource($excursion),'message'=>'Excursion insertada con exito'],201);    
 
         } catch (Exception $e) {
 

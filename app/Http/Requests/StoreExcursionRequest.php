@@ -11,7 +11,7 @@ class StoreExcursionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,7 +31,12 @@ class StoreExcursionRequest extends FormRequest
             'precio_entrada'=>'required|decimal:2',
             'precio_final'=>'required|decimal:2',
             'capacidad_max'=>'required|integer',
-            'places'=>'nullable|array'
+            'places'=>'nullable|array',
+            'places.*'=>'nullable|integer',
+            'images'=>'nullable|array',
+            'images.*'=>'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+           
+
         ];
     }
 }

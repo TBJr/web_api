@@ -11,7 +11,7 @@ class UpdateClientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,9 @@ class UpdateClientRequest extends FormRequest
             
             'nombre'=>'required|string|max:150',
             'direccion'=>'required|string|max:200',
-            'email'=>'required|email|unique:email',
-            'telefono'=> 'required|numeric'
+            'email'=>'required|email|unique:clients',
+            'telefono'=> 'required|numeric|digits_between:5,12'
+            //'phone_number' => 'required|string|digits_between:5,12'
         ];
     }
 }
