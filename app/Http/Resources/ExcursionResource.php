@@ -25,7 +25,10 @@ class ExcursionResource extends JsonResource
             'precio_entrada'=>$this->precio_entrada,
             'precio_final'=>$this->precio_final,
             'capacidad_max'=>$this->capacidad_max,
-            'places'=>PlaceResource::collection($this->places)
+            'places'=>PlaceResource::collection($this->places),
+            'images'=>ImageResource::collection($this->images),
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at,
             
         ];
     }

@@ -16,7 +16,8 @@ class PlaceResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'descripcion'=>$this->descripcion
+            'descripcion'=>$this->descripcion,
+            'images'=> ImageResource::collection($this->images)
         ];
     }
 }

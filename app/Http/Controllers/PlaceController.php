@@ -6,10 +6,14 @@ use App\Models\Place;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Http\Resources\PlaceCollection;
+use App\Services\ImageService;
 use Exception;
 
 class PlaceController extends Controller
 {
+    function __construct( 
+        protected ImageService $imageService){}
+    
     /**
      * Display a listing of the resource.
      */
@@ -27,8 +31,19 @@ class PlaceController extends Controller
     {
         try {
 
-            $data = $request->validated();
+            $data = $request->validated()->except(['images']);
+            $images =  $request->validated()->only(['images']);
             $place = Place::create($data);
+
+            if ($images->hasFile('images')){
+
+                foreach ($images->file('images') as $imagefile) {
+                    $ruta = $this->imageService->uploadImage($imagefile);
+                    $image = $this->imageService->saveImage($ruta);
+                    $place->images()->save($image);
+                }
+
+            }
             return response()->json(['data'=>$place,'message'=>'Lugar insertado con exito','statusCode'=>201],201);
 
         } catch (Exception $e) {

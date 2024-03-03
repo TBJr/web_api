@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreImageRequest;
 use App\Models\Image;
+use App\Services\ImageService;
 use Exception;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
+    
+    function __construct(
+        protected ImageService $imageService,
+    ){}
+    
     /**
      * Display a listing of the resource.
      */
@@ -23,20 +30,25 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreImageRequest $request)
     {
 
         try {
 
-            $this->validate($request, [
-                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            ]);
+            // $this->validate($request, [
+            //     'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            // ]);
+
+            $requestValidated = $request->validated();
+
+            //aca llamaria al servicio con $requestValidated->file('image')
     
-            $ruta = $request->file('image')->store('images', 'public');
+            $ruta = $this->imageService->uploadImage($requestValidated->file('image'));
+            $image = $this->imageService->saveImage($ruta);
     
-            Image::create([
-                'ruta' => $ruta,
-            ]);
+            // Image::create([
+            //     'ruta' => $ruta,
+            // ]);
     
             return response()->json(['message'=>'Imagen insertada con exito'],200);
             

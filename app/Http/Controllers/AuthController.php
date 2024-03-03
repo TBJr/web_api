@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     public function register(StoreUserRequest $request){
 
