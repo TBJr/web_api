@@ -8,14 +8,18 @@ use App\Models\Image;
 Class ImageService
 {
     public function uploadImage($imageFile)
-    {       
-        $path = $imageFile->store('images', 'public');   
+    {      
+        $name = $imageFile->hashName(); // Generate a unique, random name...
+        $extension = $imageFile->extension();
+        $filename = $name . '.' . $extension;
+        //$imageFile->move(public_path('images'), $filename);
+        $path = $imageFile->storeAs('images', $filename);   
         return $path;
     }
 
     public function saveImage($path){
         $image = Image::create([
-            'ruta' => $path,
+            'url' => $path,
         ]);
 
         return $image;

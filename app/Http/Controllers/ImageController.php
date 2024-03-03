@@ -39,18 +39,21 @@ class ImageController extends Controller
             //     'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             // ]);
 
-            $requestValidated = $request->validated();
+          //  $requestValidated = $request->validated();
 
             //aca llamaria al servicio con $requestValidated->file('image')
+
+            if(  $request->file('image')->isValid() ){
+
+                $ruta = $this->imageService->uploadImage($request->file('image'));
+                $image = $this->imageService->saveImage($ruta);  
+           
     
-            $ruta = $this->imageService->uploadImage($requestValidated->file('image'));
-            $image = $this->imageService->saveImage($ruta);
+                return response()->json(['message'=>'Imagen insertada con exito'],200);
+
+            }
     
-            // Image::create([
-            //     'ruta' => $ruta,
-            // ]);
-    
-            return response()->json(['message'=>'Imagen insertada con exito'],200);
+            
             
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);

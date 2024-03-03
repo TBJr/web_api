@@ -37,18 +37,20 @@ class ExcursionController extends Controller
 
         try {
             
-            $data = $request->validated()->except(['places,images']);
-            $places = $request->validated()->only(['places']);
-            $images = $request->validated()->only(['images']);
+            $data = $request->safe()->except(['places,images']);
+            $dataPlaces = $request->safe()->only(['places']);
+            //$dataImages = $request->safe()->only(['images']);
+          
            
             $excursion = Excursion::create($data);
-            $excursion->places()->sync($places);
 
-            if ( $images->hasFile('images') ){
+            $excursion->places()->sync($dataPlaces);
 
-                foreach ($images->file('images') as $imagefile) {
-                    $ruta = $this->imageService->uploadImage($imagefile);
-                    $image = $this->imageService->saveImage($ruta);
+            if ($request->file('images')->isValid()){
+
+                foreach ($request->file('images') as $imagefile) {
+                    $path = $this->imageService->uploadImage($imagefile);
+                    $image = $this->imageService->saveImage($path);
                     $excursion->images()->save($image);
                 }
 
