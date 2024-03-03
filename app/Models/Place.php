@@ -11,7 +11,7 @@ class Place extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','descripcion'];
+    protected $fillable = ['nombre','descripcion','images'];
 
     public function excursions():BelongsToMany
     {
