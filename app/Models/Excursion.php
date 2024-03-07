@@ -30,6 +30,7 @@ class Excursion extends Model
        return $this->belongsToMany(Place::class);
     }
 
+
     public function images():MorphToMany
     {
         return $this->morphToMany(Image::class,'imageable');
