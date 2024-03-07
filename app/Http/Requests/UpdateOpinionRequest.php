@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateOpinionRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateOpinionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,23 @@ class UpdateOpinionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'puntuacion'=>'required|integer',
+            'comentario'=>'required|string',
+            // 'fecha'=>'nullable|date_format:Y-m-d',
+           
+            'client_id'=>'required|integer',
+            'excursion_id'=>[
+                'required|integer',
+                Rule::unique('opnions','excursion_id')->where('client_id',$this->input('client_id'))
+            ],
             //
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'excursion_id.unique' => 'A client can only emit one opinion for each excursion.',
         ];
     }
 }

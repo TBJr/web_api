@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+ 
 class UpdateReservationRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class UpdateReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

@@ -41,11 +41,11 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Client $client)
+    public function show($id)
     {
         try {
 
-            $client = Client::findOrFail(1);
+            $client = Client::findOrFail($id);
             return response()->json(['data'=>$client],200); 
 
         } catch (Exception $e) {
@@ -60,12 +60,12 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(UpdateClientRequest $request,int $id)
     {
 
         try {
 
-            $client = Client::findOrFail(1);
+            $client = Client::findOrFail($id);
             $data = $request->validated();
             $client->update($data);
             return response()->json(['data'=>$client, 'message'=>'Cliente actualizado con exito'],200); 
@@ -83,11 +83,11 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy($id)
     {
         try {
 
-            $client = Client::findOrFail(1);
+            $client = Client::findOrFail($id);
             $client->delete();
             return response()->json(['message'=>'Cliente eliminado con exito'],200);
 

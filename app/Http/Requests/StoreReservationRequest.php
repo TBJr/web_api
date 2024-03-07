@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreReservationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,14 +23,23 @@ class StoreReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id'=>'required',
+            'client_id'=>'required|integer',
             'fecha_reserva'=>'required|date_format:Y-m-d',
             'cantidad_personas'=>'required|integer',
-            'estado'=> 'nullable|in:confirmada,pendiente,cancelada',
-            'client_id'=>'required',
-            'excursion_id'=>'required'
+            'estado'=> 'nullable|in:confirmada,pendiente,cancelada',           
+            'excursion_id'=>[
+                'required|integer',
+                Rule::unique('reservations','excursion_id')->where('client_id',$this->input('client_id'))
+
+            ]
            
             //
         ];
     }
+    public function messages()
+{
+    return [
+        'excursion_id.unique' => 'A client can only have a reservation for each excursion.',
+    ];
+}
 }

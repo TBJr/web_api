@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Excursion extends Model
 {
     use HasFactory;
-    
+
     protected $fillable =['nombre','descripcion','fecha_inicio','hola_salida','fecha_fin','hora_regreso','precio_entrada','precio_final','capacidad_max'];
 
     public function reservations():HasMany
@@ -28,8 +29,10 @@ class Excursion extends Model
     {
        return $this->belongsToMany(Place::class);
     }
-    public function image()
+
+    public function images():MorphToMany
     {
-       return $this->morphOne(Image::class, 'imageable');
+        return $this->morphToMany(Image::class,'imageable');
     }
+
 }
