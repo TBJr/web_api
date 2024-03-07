@@ -11,16 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('images');
-        Storage::makeDirectory('images');
+
          \App\Models\User::factory(18)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        Storage::deleteDirectory('/public/excursions');
-        Storage::makeDirectory('/public/excursions');
+
+        Storage::deleteDirectory('/public/images');
+        Storage::makeDirectory('/public/images');
         $this->call([
             ClientSeeder::class,
             ExcursionSeeder::class,
