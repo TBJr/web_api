@@ -26,40 +26,22 @@ class ExcursionSeeder extends Seeder
 
             $places = Place::inRandomorder()->take(rand(1,5))->pluck('id');
 
-            $images  = Image::inRandomorder()->take(rand(1,2))->pluck('id');
+            $images  = Image::inRandomorder()->take(rand(1,2))->pluck('imageable_id');
 
             $excursion->places()->attach($places);
-            $excursion->images()->attach($images);
+            Image::factory(1)->create([
+                'imageable_id'=>$excursion->id,
+                'imageable_type'=>Excursion::class
+             ]);
 
         }
 
         foreach( Place::all() as $place ){
-
-            $images  = Image::inRandomorder()->take(rand(1,3))->pluck('id');
-            $place->images()->attach($images);
-
-        }
-
-        foreach( Excursion::all() as $excursion ){
-
             Image::factory(1)->create([
-               'imageable_id'=>$excursion->id,
-               'imageable_type'=>Excursion::class
-            ]);
-
-
+                'imageable_id'=>$place->id,
+                'imageable_type'=>Place::class
+             ]);
         }
-        foreach( Place::all() as $Place ){
-
-            Image::factory(1)->create([
-               'imageable_id'=>$Place->id,
-               'imageable_type'=>Place::class
-            ]);
-
-
-        }
-
-
 
     }
 }

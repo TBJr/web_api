@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use iLLuminate\Database\Eloquent\Relations\MorphOne;
 
 class Excursion extends Model
 {
@@ -30,9 +31,9 @@ class Excursion extends Model
        return $this->belongsToMany(Place::class);
     }
 
-    public function images():MorphToMany
+    public function images():MorphOne
     {
-        return $this->morphToMany(Image::class,'imageable');
+        return $this->morphOne(Image::class,'imageable');
     }
 
 }

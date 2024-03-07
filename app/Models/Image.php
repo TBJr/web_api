@@ -12,6 +12,10 @@ class Image extends Model
 
     protected $fillable = ['url'];
 
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
     public function excursions():MorphToMany
     {
         return $this->morphedByMany(Excursion::class,'imageable');
