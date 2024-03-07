@@ -16,7 +16,7 @@ class Opinion extends Model
 
     public function client():BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 
     public function excursion():BelongsTo

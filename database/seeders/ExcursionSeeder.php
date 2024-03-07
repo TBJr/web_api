@@ -18,6 +18,7 @@ class ExcursionSeeder extends Seeder
     public function run(): void
     {
         //
+
         Excursion::factory(6)->create();
         Place::factory(20)->create();
         Image::factory(20)->create();
@@ -41,7 +42,6 @@ class ExcursionSeeder extends Seeder
         }
 
 
-      
 
     }
 }
