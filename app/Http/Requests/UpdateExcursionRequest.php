@@ -11,7 +11,7 @@ class UpdateExcursionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateExcursionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            
+            'nombre'=>'required|string|max:255',
+            'descripcion'=>'required|string',
+            'fecha_inicio'=> 'required|date_format:Y-m-d',
+            'hora_salida'=> 'required|date_format:H:i:s',
+            'fecha_fin'=>'required|date_format:Y-m-d',
+            'hora_regreso'=>'required|date_format:H:i:s',
+            'precio_entrada'=>'required|decimal:2',
+            'precio_final'=>'required|decimal:2',
+            'capacidad_max'=>'required|integer',
+            'places'=>'nullable|array',
+            'images'=>'nullable|array'
         ];
     }
 }
