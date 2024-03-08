@@ -13,23 +13,28 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::paginate(20);
+        return response()->json(['data'=>$ $payments],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        try {
+            
+            $data = $request->validated();
+            $payment = Payment::create($data);
+            return response()->json(['data'=>$payment,'message'=>'Pago insertado con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+
+        }
     }
 
     /**
@@ -37,23 +42,37 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        try {
+            
+            $payment = Payment::findOrfail(1);
+            return response()->json(['data'=>$payment,'message'=>'Pago insertado con exito'],201);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
+   
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        try {
+            
+            $payment = Payment::findOrFail(1);
+            $data = $request->validated();
+            $payment->update($data);
+            return response()->json(['data'=>$payment,'message'=>'Pago actualizado con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 
     /**
@@ -61,6 +80,16 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        try {
+
+            $payment = Payment::findOrFail(1);
+            $payment->delete(); 
+            return response()->json(['message'=>'Pago eliminado con exito'],200);
+
+        } catch (Exception $e) {
+
+            return response()->json(['error' => $e->getMessage()],500); 
+            
+        }
     }
 }

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout',[AuthController::class,'logout']);
     Route::get('/user', function (Request $request) { 
@@ -38,6 +39,7 @@ Route::apiResource('excursions',ExcursionController::class);
 // Route::apiResource('users',UserController::class);
 Route::apiResource('reservations',ReservationController::class);
 Route::apiResource('places',PlaceController::class);
+
 Route::apiResource('images',ImageController::class)->except('update');
 
 Route::middleware('api')->group(function(){

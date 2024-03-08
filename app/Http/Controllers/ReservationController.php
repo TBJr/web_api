@@ -16,6 +16,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
+
         return new ReservationCollection(Reservation::paginate());
     }
 
@@ -27,6 +28,7 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         try {
+
 
             $data = $request->validated();
             $reservation = Reservation::create($data);
@@ -45,6 +47,7 @@ class ReservationController extends Controller
     public function show($id)
     {
 
+
         try { 
 
             $reservation = Reservation::findOrFail($id);
@@ -58,7 +61,7 @@ class ReservationController extends Controller
         
     }
 
-   
+  
 
     /**
      * Update the specified resource in storage.
@@ -66,6 +69,7 @@ class ReservationController extends Controller
     public function update(UpdateReservationRequest $request, $id)
     {
         try {
+
             $data=$request->validated();
             $reservation = Reservation::findOrFail($id);
             $reservation->update($data);
@@ -84,12 +88,14 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         try {
+
            
             $reservation = Reservation::findOrFail($id);
             $reservation->delete();
             return response()->json(['message'=>'Reservación eliminada con exito'],200);
 
         } catch (Exception $e) {
+
 
             return response()->json(['error'=>$e->getMessage()],500);
         }
