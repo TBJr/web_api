@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OpinionController;
 use App\Models\Excursion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +33,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
 
 
-
+Route::apiResource('opinions',OpinionController::class);
 Route::apiResource('clients',ClientController::class);
 Route::apiResource('excursions',ExcursionController::class);
 // Route::apiResource('users',UserController::class);
