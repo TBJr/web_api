@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Excursion extends Model
 {
@@ -28,8 +29,10 @@ class Excursion extends Model
     {
        return $this->belongsToMany(Place::class);
     }
-    public function image()
+
+    public function images():MorphToMany
     {
-       return $this->morphOne(Image::class, 'imageable');
+        return $this->morphToMany(Image::class,'imageable');
     }
+    
 }
