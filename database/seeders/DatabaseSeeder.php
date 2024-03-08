@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\Storage;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,12 +22,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
+        Storage::deleteDirectory('/public/excursions');
+        Storage::makeDirectory('/public/excursions');
         $this->call([
             ClientSeeder::class,
             ExcursionSeeder::class,
             ReservationSeeder::class,
-            OpinionSeeder::class           
+            OpinionSeeder::class
 
 
         ]);
