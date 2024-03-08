@@ -11,7 +11,7 @@ class StorePlaceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StorePlaceRequest extends FormRequest
         return [
             //
             'nombre'=>'required|string|max:255',
-            'descripcion'=>'required|string'
+            'descripcion'=>'required|string',
+            'images'=>'nullable|array',
+            'images.*'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

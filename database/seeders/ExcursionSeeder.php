@@ -18,31 +18,30 @@ class ExcursionSeeder extends Seeder
     public function run(): void
     {
         //
-       Excursion::factory(6)->create();
-       Place::factory(20)->create();
-       //Image::factory(6)->create();
+        Excursion::factory(6)->create();
+        Place::factory(20)->create();
+        Image::factory(20)->create();
 
-       foreach( Excursion::all() as $excursion ){
+        foreach( Excursion::all() as $excursion ){
 
             $places = Place::inRandomorder()->take(rand(1,5))->pluck('id');
 
+            $images  = Image::inRandomorder()->take(rand(1,2))->pluck('id');
+
             $excursion->places()->attach($places);
+            $excursion->images()->attach($images);
+
+        }
+
+        foreach( Place::all() as $place ){
+        
+            $images  = Image::inRandomorder()->take(rand(1,3))->pluck('id');
+            $place->images()->attach($images);
+
+        }
 
 
-       }
-
-       $excursion=Excursion::factory(6)->create();
-
-       foreach( $excursion as $excursion ){
-
-            Image::factory(1)->create([
-               'imageable_id'=>$excursion->id,
-               'imageable_type'=>Excursion::class
-            ]);
-
-
-       }
-
+      
 
     }
 }
