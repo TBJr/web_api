@@ -17,6 +17,15 @@ return new class extends Migration
             $table->string('url',255);
             $table->timestamps();
         });
+
+        Schema::create('imageables', function (Blueprint $table) {
+
+            $table->foreignId('image_id')->constrained();  
+            $table->morphs('imageable') ;    
+            // $table->integer("imageable_id");        
+            // $table->string("imageable_type");
+        
+        });
     }
 
     /**
@@ -24,6 +33,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('imageables');
         Schema::dropIfExists('images');
+        
     }
 };
