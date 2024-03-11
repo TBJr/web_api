@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Image extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $fillable = ['url'];
 
@@ -16,6 +17,11 @@ class Image extends Model
     {
         return $this->morphTo();
     }
+=======
+    
+    protected $fillable = ['url'];
+
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
     public function excursions():MorphToMany
     {
         return $this->morphedByMany(Excursion::class,'imageable');
@@ -26,5 +32,9 @@ class Image extends Model
         return $this->morphedByMany(Place::class,'imageable');
     }
 
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
 }

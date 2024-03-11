@@ -36,7 +36,11 @@ class ReservationController extends Controller
 
             return response()->json(['error'=>$e->getMessage()],500);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
     }
 
     /**
@@ -45,7 +49,11 @@ class ReservationController extends Controller
     public function show($id)
     {
 
+<<<<<<< HEAD
         try {
+=======
+        try { 
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
 
             $reservation = Reservation::findOrFail($id);
             return response()->json(['data'=> new ReservationResource($reservation)],200);
@@ -58,7 +66,11 @@ class ReservationController extends Controller
 
     }
 
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
 
     /**
      * Update the specified resource in storage.
@@ -75,7 +87,11 @@ class ReservationController extends Controller
 
             return response()->json(['error'=>$e->getMessage()],500);
         }
+<<<<<<< HEAD
 
+=======
+       
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
     }
 
     /**
@@ -84,7 +100,11 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         try {
+<<<<<<< HEAD
 
+=======
+           
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
             $reservation = Reservation::findOrFail($id);
             $reservation->delete();
             return response()->json(['message'=>'Reservación eliminada con exito'],200);
