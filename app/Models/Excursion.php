@@ -35,5 +35,9 @@ class Excursion extends Model
     {
         return $this->morphOne(Image::class,'imageable');
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> d67fe0a3c2469b5d59acf486414eb9fd2346953a
 }
