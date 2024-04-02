@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Excursion;
 use App\Models\Place;
 use App\Models\Image;
+use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -18,9 +19,10 @@ class ExcursionSeeder extends Seeder
     public function run(): void
     {
         //
-        Excursion::factory(6)->create();
+        Excursion::factory(30)->create();
         Place::factory(20)->create();
         Image::factory(20)->create();
+        Service::factory(10)->create();
 
         foreach( Excursion::all() as $excursion ){
 
@@ -34,14 +36,19 @@ class ExcursionSeeder extends Seeder
         }
 
         foreach( Place::all() as $place ){
-        
+
             $images  = Image::inRandomorder()->take(rand(1,3))->pluck('id');
             $place->images()->attach($images);
 
         }
 
+        foreach (Excursion::all() as $excursion) {
+            $excursion->services()->attach(
+                Service::all()->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        }
 
-      
+
 
     }
 }

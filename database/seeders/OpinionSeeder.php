@@ -13,6 +13,6 @@ class OpinionSeeder extends Seeder
     public function run(): void
     {
         //
-        Opinion::factory(5)->create();
+        Opinion::factory(200)->create();
     }
 }
