@@ -11,8 +11,7 @@ class Opinion extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-    protected $fillable = ['puntuacion', 'comentario'];
+    protected $fillable = ['puntuacion', 'comentario', 'opinions'];
 
     public function client():BelongsTo
     {
@@ -22,5 +21,9 @@ class Opinion extends Model
     public function excursion():BelongsTo
     {
         return $this->belongsTo(Excursion::class);
+    }
+
+    public function services() {
+        return $this->hasMany(Service::class);
     }
 }
